@@ -15,7 +15,7 @@ func newGraph() graph {
 // Creates a vertex and adds it to the graph.
 // When the vertex already exists, it'll be overwritten.
 func (g graph) addVertex(name string, color int) {
-	v := vertex{name: name, color: color}
+	v := newVertex(name, color)
 	g.vertexMap[name] = v
 }
 
