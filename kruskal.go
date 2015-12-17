@@ -9,11 +9,11 @@ func main() {
 
 	//TODO read graphs from file
 
-	g.addVertex("a", 0)
-	g.addVertex("b", 0)
-	g.addVertex("c", 0)
-	g.addVertex("d", 0)
-	g.addVertex("e", 0)
+	g.addVertex("a")
+	g.addVertex("b")
+	g.addVertex("c")
+	g.addVertex("d")
+	g.addVertex("e")
 
 	g.addEdge("a", "b", 2)
 	g.addEdge("a", "e", 1)
@@ -25,23 +25,17 @@ func main() {
 
 	//TODO better output + output of minimal spanning tree
 
-	//Output of the edge map
-	fmt.Println("\n\nEdge map:\n")
-	for _, e := range g.edgeMap {
-		fmt.Println(e)
-	}
-
 	// Start Kruskal algorithm
 	fmt.Println("\n\nStart kruskal:\n")
 	A := make([]edge, 0)
 	// iterates over the list of sorted keys (e)
 	for e, i := getBounds(g.edgeMap), 0; i < len(e); i++ {
 		fmt.Println(i, " - ", e[i])
-		for _, e := range g.edgeMap[e[i]] {
+		for _, e := range g.getEdgesWithWeight(e[i]) {
 			fmt.Println("    ", e)
-			if findSet(&e.x) != findSet(&e.y) {
+			if (&e.x).findSet() != (&e.y).findSet() {
 				A = append(A, e)
-				union(&e.x, &e.y)
+				(&e.x).union(&e.y)
 			}
 		}
 	}
@@ -54,12 +48,12 @@ func main() {
 }
 
 // Gets a sorted list of all keys of the given map.
-func getBounds(edges map[int][]edge) []int {
+func getBounds(edges []edge) []int {
 	output := make([]int, 0)
 
 	// get all keys
-	for i, _ := range edges {
-		output = append(output, i)
+	for _, i := range edges {
+		output = append(output, i.weight)
 	}
 
 	// sort list of keys
