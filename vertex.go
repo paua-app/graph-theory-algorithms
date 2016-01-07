@@ -1,10 +1,11 @@
 package main
 
 type vertex struct {
-	name      string
-	rank, key int
-	parent    *vertex
-	neighbors []vertex
+	name             string
+	rank, key, color int
+	parent           *vertex
+	neighbors        []vertex
+	reachables       []vertex
 }
 
 func newVertex(name string) vertex {
@@ -21,8 +22,16 @@ func (v *vertex) setRank(rank int) {
 	v.rank = rank
 }
 
+func (v *vertex) setColor(color int) {
+	v.color = color
+}
+
 func (v *vertex) setParent(parent vertex) {
 	v.parent = &parent
+}
+
+func (v *vertex) addReachable(u vertex) {
+	v.reachables = append(v.reachables, u)
 }
 
 func (v *vertex) addNeighbor(neighbor vertex) {

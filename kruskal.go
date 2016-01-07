@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func main() {
+func kruskal() {
 	g := newGraph()
 
 	//TODO read graphs from file
@@ -15,13 +15,13 @@ func main() {
 	g.addVertex("d")
 	g.addVertex("e")
 
-	g.addEdge("a", "b", 2)
-	g.addEdge("a", "e", 1)
-	g.addEdge("b", "e", 42)
-	g.addEdge("b", "d", 1)
-	g.addEdge("b", "c", 3)
-	g.addEdge("c", "d", 7)
-	g.addEdge("e", "d", 2)
+	g.addEdgeWeight("a", "b", 2)
+	g.addEdgeWeight("a", "e", 1)
+	g.addEdgeWeight("b", "e", 42)
+	g.addEdgeWeight("b", "d", 1)
+	g.addEdgeWeight("b", "c", 3)
+	g.addEdgeWeight("c", "d", 7)
+	g.addEdgeWeight("e", "d", 2)
 
 	//TODO better output + output of minimal spanning tree
 

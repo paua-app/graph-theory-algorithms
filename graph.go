@@ -1,5 +1,9 @@
 package main
 
+import (
+	"fmt"
+)
+
 type graph struct {
 	vertexMap map[string]vertex
 	edgeMap   []edge
@@ -20,8 +24,17 @@ func (g graph) addVertex(name string) {
 }
 
 // Creates an edge to the graph
-func (g *graph) addEdge(v1, v2 string, weight int) {
-	edge := newEdge(g.vertexMap[v1], g.vertexMap[v2], weight)
+func (g *graph) addEdgeWeight(v1, v2 string, weight int) {
+	edge := newEdgeWeight(g.vertexMap[v1], g.vertexMap[v2], weight)
+	g.addEdge(edge)
+}
+
+func (g *graph) addEdgeFlow(v1, v2 string, flow, capacity int) {
+	edge := newEdgeFlow(g.vertexMap[v1], g.vertexMap[v2], flow, capacity)
+	g.addEdge(edge)
+}
+
+func (g *graph) addEdge(edge edge) {
 	contains := false
 	for _, e := range g.edgeMap {
 		if e.equals(edge) {
@@ -34,6 +47,10 @@ func (g *graph) addEdge(v1, v2 string, weight int) {
 		e := &edge
 		e.x.neighbors = append(e.x.neighbors, e.y)
 		e.y.neighbors = append(e.y.neighbors, e.x)
+		fmt.Println("Before: ", e.x.reachables)
+		e.x.reachables = append(e.x.reachables, e.y)
+		(&e.x).color = 42
+		fmt.Println("After : ", e.x.reachables)
 	}
 }
 
