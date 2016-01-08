@@ -29,13 +29,13 @@ func kruskal() {
 	fmt.Println("\n\nStart kruskal:\n")
 	A := make([]edge, 0)
 	// iterates over the list of sorted keys (e)
-	for e, i := getBounds(g.edgeMap), 0; i < len(e); i++ {
+	for e, i := getBounds(*g.edgeMap), 0; i < len(e); i++ {
 		fmt.Println(i, " - ", e[i])
 		for _, e := range g.getEdgesWithWeight(e[i]) {
 			fmt.Println("    ", e)
 			if (&e.x).findSet() != (&e.y).findSet() {
 				A = append(A, e)
-				(&e.x).union(&e.y)
+				(&e.x).union(e.y)
 			}
 		}
 	}

@@ -4,12 +4,12 @@ type vertex struct {
 	name             string
 	rank, key, color int
 	parent           *vertex
-	neighbors        []vertex
-	reachables       []vertex
+	reachables       *[]vertex
 }
 
 func newVertex(name string) vertex {
-	v := vertex{name: name}
+	reachables := make([]vertex, 0)
+	v := vertex{name: name, reachables: &reachables}
 	(&v).makeSet()
 	return v
 }
@@ -26,25 +26,8 @@ func (v *vertex) setColor(color int) {
 	v.color = color
 }
 
-func (v *vertex) setParent(parent vertex) {
-	v.parent = &parent
-}
-
-func (v *vertex) addReachable(u vertex) {
-	v.reachables = append(v.reachables, u)
-}
-
-func (v *vertex) addNeighbor(neighbor vertex) {
-	contains := false
-	for _, v := range v.neighbors {
-		if v.equals(neighbor) {
-			contains = true
-			break
-		}
-	}
-	if !contains {
-		v.neighbors = append(v.neighbors, neighbor)
-	}
+func (v *vertex) setParent(parent *vertex) {
+	v.parent = parent
 }
 
 // Checks if two vertices are equal. They are equal when their names are egual.
